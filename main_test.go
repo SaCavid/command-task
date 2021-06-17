@@ -5,21 +5,32 @@ import (
 )
 
 var (
-	args = []string{"apple/service1"}
-	argsNoData = []string{""}
-	argsErrorServiceName = []string{"apple"}
+	args                         = []string{"apple/service3"}
+	argsExpired                  = []string{"apple/service2"}
+	argsCorruptedDate            = []string{"apple/service1"}
+	argsNoData                   = []string{""}
+	argsErrorServiceName         = []string{"apple"}
 	argsErrorNotAllowedCharacter = []string{"-apple/service1"}
-	//args = []string{"apple/service1"}
-	//args = []string{"apple/service1"}
 )
 
 func TestRoot(t *testing.T) {
 
-	// normal message
+	// normal message and not expired license file
 	err := Root(args)
 	if err != nil {
 		t.Errorf(err.Error())
-		return
+	}
+
+	// corrupted end date in license file
+	err = Root(argsExpired)
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+
+	// corrupted end date in license file
+	err = Root(argsCorruptedDate)
+	if err == nil {
+		t.Errorf("App error: not implemented corrupted data check up")
 	}
 
 	// not completed service name
