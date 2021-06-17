@@ -21,7 +21,7 @@ func TestRoot(t *testing.T) {
 		t.Errorf(err.Error())
 	}
 
-	// corrupted end date in license file
+	// corrupted end date/notification date in license file
 	err = Root(argsExpired)
 	if err != nil {
 		t.Errorf(err.Error())
@@ -36,7 +36,7 @@ func TestRoot(t *testing.T) {
 	// not completed service name
 	err = Root(argsErrorServiceName)
 	if err == nil {
-		t.Errorf("App error: service not exists command")
+		t.Errorf("App error: not implemented service not exists command")
 	}
 
 	// not command exist
